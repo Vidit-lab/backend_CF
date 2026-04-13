@@ -83,7 +83,7 @@ app.get('/api/behaviours/summary', async (req, res) => {
 // Health check
 app.get('/api/health', (_req, res) => res.json({ ok: true, ts: Date.now() }));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8080;
 const server = app.listen(PORT, () => {
   console.log(`🚀 API ready at http://localhost:${PORT}`);
 });
