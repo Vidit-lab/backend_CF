@@ -7,7 +7,11 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 
-require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+const fs = require('fs');
+const envPath = path.resolve(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  require('dotenv').config({ path: envPath });
+}
 
 const app = express();
 app.use(cors());
@@ -18,9 +22,11 @@ app.use(express.json());
 const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) {
-  console.error('❌ Missing MONGO_URI. Add it to server/.env.');
+  console.error('❌ Missing MONGO_URI. Add it to Railway environment variables.');
   process.exit(1);
 }
+
+console.log('✅ MONGO_URI is set');
 
 mongoose
   .connect(MONGO_URI, { dbName: 'test' })
